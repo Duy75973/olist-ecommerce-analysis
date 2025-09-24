@@ -89,3 +89,8 @@ CREATE TABLE order_reviews (
     PRIMARY KEY (review_id, order_id),
     FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE
 );
+
+
+SELECT COUNT(*) FROM customers; -- Kết quả nên là 99441
+SELECT COUNT(*) FROM orders;    -- Kết quả nên là 99441
+SELECT COUNT(*) FROM order_items; -- Kết quả nên là 112650
