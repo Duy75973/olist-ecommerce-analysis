@@ -1,0 +1,32 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  # Tên dịch vụ, bạn có thể đặt tùy ý
+  mysql-db:
+    # Sử dụng image chính thức của MySQL phiên bản 8.0
+    image: mysql:8.0
+    # Đặt tên cho container để dễ quản lý
+    container_name: mysql-olist-db
+    # Tự động khởi động lại container trừ khi bạn chủ động dừng nó
+    restart: unless-stopped
+    
+    # Cấu hình biến môi trường cho container MySQL
+    environment:
+      MYSQL_ROOT_PASSWORD: Duy171103  # TODO: Thay bằng một mật khẩu root mạnh
+      MYSQL_DATABASE: olist_db                       # Tên database chúng ta sẽ tạo
+      MYSQL_USER: olist_user                         # Tên user để truy cập database
+      MYSQL_PASSWORD: Duy171103    # TODO: Thay bằng mật khẩu user mạnh
+    
+    # Ánh xạ port 3307 của máy bạn vào port 3306 (mặc định) của container
+    # Dùng port 3307 để tránh xung đột nếu máy bạn đã cài MySQL rồi
+    ports:
+      - "3307:3306"
+      
+    # Gắn một volume để dữ liệu không bị mất khi container bị xóa/dừng
+    volumes:
+      - olist_mysql_data:/var/lib/mysql
+
+# Khai báo volume được sử dụng ở trên
+volumes:
+  olist_mysql_data:
